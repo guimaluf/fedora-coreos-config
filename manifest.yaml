@@ -1,8 +1,22 @@
 ref: my/${basearch}/coreos/stable
 include: fedora-coreos-config/manifest.yaml
 
-packages:
-- k3s-selinux
+packages: []
+ # - k3s-selinux
 
 repos:
-- file:///rancher.repo
+- rancher
+
+postprocess:
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=1.21.3+k3s1 sh -
+
+  - |
+    #!/usr/bin/env bash
+    set -xeuo pipefail
+    curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash -
+    helm repo add timescaledb 'https://raw.githubusercontent.com/timescale/timescaledb-kubernetes/master/charts/repo/'
+    helm repo update
+    helm install timescaledb/timescaledb-single --generate-name
