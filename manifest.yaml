@@ -1,0 +1,8 @@
+ref: my/${basearch}/coreos/stable
+include: fedora-coreos-config/manifest.yaml
+
+packages:
+- k3s-selinux
+
+repos:
+- file:///rancher.repo

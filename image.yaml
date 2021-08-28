@@ -1,8 +1,4 @@
-ref: my/${basearch}/coreos/stable
-include: fedora-coreos-config/manifest.yaml
-
-packages:
-- k3s-selinux
-
-repos:
-- file:///rancher.repo
+# This file can optionally contain configuration specific to the stream,
+# similarly to manifest.yaml. Unlike image-base.yaml, which is shared by all
+# streams.
+include: image-base.yaml
